@@ -28,7 +28,7 @@ repositories {
     mavenCentral()
 }
 
-ext{
+ext {
     serenityVersion = '4.3.2'
     logbackVersion = '1.5.21'
     jacksonVersion = '3.0.2'
@@ -36,7 +36,7 @@ ext{
     jsonUnitVersion = '5.1.0'
     junitPlatformVersion = '6.0.1'
     cucumberVersion = '7.32.0'
-    dataFakerVersion= '2.5.3'
+    dataFakerVersion = '2.5.3'
     jupiterVersion = '6.0.1'
 }
 
@@ -86,11 +86,9 @@ spotless {
 
 tasks.register('cleanLog') {
     def logFile = file('rest_assured_project.log')
-    dotFirst {
-        if (logFile.exists()) {
-            logFile.delete()
-            println "Deleted rest_assured_project.log file"
-        }
+    if (logFile.exists()) {
+        logFile.delete()
+        println "Deleted rest_assured_project.log file"
     }
 }
 
