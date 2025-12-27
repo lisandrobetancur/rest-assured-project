@@ -1,0 +1,104 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'net.serenity-bdd:serenity-single-page-report:4.3.2'
+    }
+}
+
+plugins {
+    id 'java'
+    id 'idea'
+    id 'io.freefair.lombok' version '9.1.0'
+    id 'net.serenity-bdd.serenity-gradle-plugin' version '4.3.2'
+    id 'com.diffplug.spotless' version '6.25.0'
+}
+
+project.group = 'com.co'
+project.version = '1.0.0-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+ext{
+    serenityVersion = '4.3.2'
+    logbackVersion = '1.5.21'
+    jacksonVersion = '3.0.2'
+    assertjVersion = '3.27.6'
+    jsonUnitVersion = '5.1.0'
+    junitPlatformVersion = '6.0.1'
+    cucumberVersion = '7.32.0'
+    dataFakerVersion= '2.5.3'
+    jupiterVersion = '6.0.1'
+}
+
+configurations {
+    cucumberRuntime {
+        extendsFrom testImplementation
+    }
+}
+
+dependencies {
+    implementation "ch.qos.logback:logback-core:${logbackVersion}"
+    implementation "ch.qos.logback:logback-classic:${logbackVersion}"
+    implementation "tools.jackson.core:jackson-databind:${jacksonVersion}"
+    implementation "net.serenity-bdd:serenity-rest-assured:${serenityVersion}"
+    testImplementation "net.serenity-bdd:serenity-cucumber:${serenityVersion}"
+    testImplementation "net.serenity-bdd:serenity-junit5:${serenityVersion}"
+    testImplementation "org.assertj:assertj-core:${assertjVersion}"
+    testImplementation "net.javacrumbs.json-unit:json-unit-assertj:${jsonUnitVersion}"
+    testImplementation "org.junit.platform:junit-platform-suite:${junitPlatformVersion}"
+    testImplementation "io.cucumber:cucumber-junit-platform-engine:${cucumberVersion}"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jupiterVersion}"
+}
+
+tasks.named('test', Test) {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+    systemProperties System.properties as Map
+}
+
+serenity {
+    reports = ["single-page-html"]
+    testRoot = "com.co"
+    requirementsDir = "src/test/resources/features"
+}
+
+spotless {
+    java {
+        target("src/*/java/**/*.java")
+        googleJavaFormat('1.25.2').aosp()
+        removeUnusedImports()
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
+}
+
+tasks.register('cleanLog') {
+    def logFile = file('rest_assured_project.log')
+    dotFirst {
+        if (logFile.exists()) {
+            logFile.delete()
+            println "Deleted rest_assured_project.log file"
+        }
+    }
+}
+
+tasks.named('compileJava') {
+    dependsOn 'spotlessApply'
+    dependsOn 'cleanLog'
+}
+
+gradle.startParameter.continueOnFailure = true
+
+test.finalizedBy(aggregate)
