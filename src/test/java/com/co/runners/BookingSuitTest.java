@@ -9,9 +9,8 @@ import org.junit.platform.suite.api.Suite;
 @Suite
 @IncludeEngines("cucumber")
 @SelectClasspathResource("features")
-// Use the official constant for the plugin key
 @ConfigurationParameter(
         key = Constants.PLUGIN_PROPERTY_NAME,
         value = "io.cucumber.core.plugin.SerenityReporterParallel")
 @ConfigurationParameter(key = Constants.GLUE_PROPERTY_NAME, value = "com.co.stepdefinitions")
-public class RunCucumberTest {}
+public class BookingSuitTest {}

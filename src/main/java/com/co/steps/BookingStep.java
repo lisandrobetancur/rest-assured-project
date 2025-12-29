@@ -1,11 +1,13 @@
 package com.co.steps;
 
 import static com.co.utils.Path.AUTH_PATH;
+import static com.co.utils.SessionVariable.USER_TOKEN;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 import com.co.model.request.AuthRequest;
 import io.restassured.http.ContentType;
 import net.serenitybdd.annotations.Step;
+import net.serenitybdd.core.Serenity;
 import net.serenitybdd.rest.SerenityRest;
 
 public class BookingStep {
@@ -32,5 +34,9 @@ public class BookingStep {
         assertThat(statusCode)
                 .withFailMessage("Expected status code 200 but got %s", statusCode)
                 .isEqualTo(200);
+
+        String token = SerenityRest.lastResponse().jsonPath().getString("token");
+
+        Serenity.setSessionVariable(USER_TOKEN.getValue()).to(token);
     }
 }
