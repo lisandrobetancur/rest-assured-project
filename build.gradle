@@ -50,10 +50,10 @@ dependencies {
     implementation "ch.qos.logback:logback-core:${logbackVersion}"
     implementation "ch.qos.logback:logback-classic:${logbackVersion}"
     implementation "tools.jackson.core:jackson-databind:${jacksonVersion}"
+    implementation "org.assertj:assertj-core:${assertjVersion}"
     implementation "net.serenity-bdd:serenity-rest-assured:${serenityVersion}"
     testImplementation "net.serenity-bdd:serenity-cucumber:${serenityVersion}"
     testImplementation "net.serenity-bdd:serenity-junit5:${serenityVersion}"
-    testImplementation "org.assertj:assertj-core:${assertjVersion}"
     testImplementation "net.javacrumbs.json-unit:json-unit-assertj:${jsonUnitVersion}"
     testImplementation "org.junit.platform:junit-platform-suite:${junitPlatformVersion}"
     testImplementation "io.cucumber:cucumber-junit-platform-engine:${cucumberVersion}"
@@ -62,10 +62,13 @@ dependencies {
 
 tasks.named('test', Test) {
     useJUnitPlatform()
+
+    systemProperty "environment", System.getProperty("environment")
+
     testLogging {
         events "passed", "skipped", "failed"
     }
-    systemProperties System.properties as Map
+    //systemProperties System.properties as Map
 }
 
 serenity {
@@ -85,10 +88,10 @@ spotless {
 }
 
 tasks.register('cleanLog') {
-    def logFile = file('rest_assured_project.log')
+    def logFile = file('rest_assured.log')
     if (logFile.exists()) {
         logFile.delete()
-        println "Deleted rest_assured_project.log file"
+        println "Deleted rest_assured.log file"
     }
 }
 
