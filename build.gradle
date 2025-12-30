@@ -36,7 +36,6 @@ ext {
     jsonUnitVersion = '5.1.0'
     junitPlatformVersion = '6.0.1'
     cucumberVersion = '7.32.0'
-    dataFakerVersion = '2.5.3'
     jupiterVersion = '6.0.1'
 }
 

@@ -11,13 +11,18 @@ public class BookingStepDefinitions {
     @Steps BookingStep booking;
 
     @Given("I logged into restful-booker with {string} and {string}")
-    public void theUserIsAuthorized(String username, String password) {
+    public void loggedWithUsernameAndPassword(String username, String password) {
         booking.login(username, password);
     }
 
-    @When("the user authenticates with {string} and {string}")
-    public void authenticate(String user, String pass) {}
+    @When("get the booking with ID {int}")
+    public void getTheBookingWithId(int bookingId) {
+        booking.searchBooking(bookingId);
+    }
 
-    @Then("the response status code should be {int}")
-    public void verifyStatusCode(int statusCode) {}
+    @Then("update the new firstname and lastname as {string} {string}")
+    public void updateFirstnameAndLastName(String firstname, String lastname) {}
+
+    @Then("the booking with ID {int} should be firstname {string} and lastname {string}")
+    public void verifyStatusCodess(int bookingId, String firstname, String lastname) {}
 }

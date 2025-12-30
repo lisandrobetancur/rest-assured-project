@@ -7,7 +7,8 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum Path {
     AUTH_PATH("auth"),
-    BOOKING_PATH("booking");
+    BOOKING_PATH("booking"),
+    BOOKING_PATH_ID("/booking/{id}");
 
     private final String value;
 }
