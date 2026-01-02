@@ -9,11 +9,13 @@ import net.thucydides.model.util.EnvironmentVariables;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/** Global setup for the test suite. */
 public class GlobalSetup {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GlobalSetup.class);
     private static final String BASE_URL_PROPERTY = "baseurl";
 
+    /** Sets up the test suite before any tests are run. */
     @BeforeAll
     public static void setup() {
         EnvironmentVariables variables = SystemEnvironmentVariables.createEnvironmentVariables();

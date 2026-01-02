@@ -14,10 +14,17 @@ import net.serenitybdd.annotations.Step;
 import net.serenitybdd.core.Serenity;
 import org.assertj.core.api.SoftAssertions;
 
+/** Contains the steps for the booking feature. */
 public class BookingStep extends BaseApi {
 
     private int bookingId;
 
+    /**
+     * Logs in to the application.
+     *
+     * @param username The username to use for login.
+     * @param password The password to use for login.
+     */
     @Step("Login with username {0} and password {1}")
     public void login(String username, String password) {
         AuthRequest payload = AuthRequest.builder().username(username).password(password).build();
@@ -30,6 +37,11 @@ public class BookingStep extends BaseApi {
         Serenity.setSessionVariable(USER_TOKEN.getValue()).to(token);
     }
 
+    /**
+     * Searches for a booking by its ID.
+     *
+     * @param bookingId The ID of the booking to search for.
+     */
     @Step("Search for booking with ID {0}")
     public void searchBooking(int bookingId) {
         this.bookingId = bookingId;
@@ -41,9 +53,15 @@ public class BookingStep extends BaseApi {
         assertStatusCode(statusCode, 200);
     }
 
+    /**
+     * Updates the first name and last name of a booking.
+     *
+     * @param firstname The new first name.
+     * @param lastname The new last name.
+     */
     @Step("new firstname {0} and lastname {1}")
     public void updateFirstnameAndLastName(String firstname, String lastname) {
-        Booking payload1 =
+        Booking payload =
                 Booking.builder()
                         .firstName(firstname)
                         .lastName(lastname)
@@ -56,19 +74,6 @@ public class BookingStep extends BaseApi {
                                         .build())
                         .additionalNeeds("Breakfast")
                         .build();
-
-        String payload =
-                "{\n"
-                        + "    \"firstname\" : \"Juanito\",\n"
-                        + "    \"lastname\" : \"Perez\",\n"
-                        + "    \"totalprice\" : 111,\n"
-                        + "    \"depositpaid\" : true,\n"
-                        + "    \"bookingdates\" : {\n"
-                        + "        \"checkin\" : \"2018-01-01\",\n"
-                        + "        \"checkout\" : \"2019-01-01\"\n"
-                        + "    },\n"
-                        + "    \"additionalneeds\" : \"Breakfast\"\n"
-                        + "}";
         Response response =
                 new BookingStep()
                         .putWithAuthAndPathParam(

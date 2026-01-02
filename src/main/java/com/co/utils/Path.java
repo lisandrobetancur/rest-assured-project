@@ -3,6 +3,7 @@ package com.co.utils;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+/** Enum representing API paths. */
 @Getter
 @AllArgsConstructor
 public enum Path {
