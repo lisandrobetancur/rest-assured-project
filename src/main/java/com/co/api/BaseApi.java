@@ -21,7 +21,7 @@ public class BaseApi {
      *
      * @return A {@link RequestSpecification} instance.
      */
-    protected RequestSpecification getCommonRequestSpec() {
+    private RequestSpecification getCommonRequestSpec() {
         return SerenityRest.given()
                 .config(
                         config().objectMapperConfig(
@@ -36,7 +36,7 @@ public class BaseApi {
      *
      * @return A {@link RequestSpecification} instance with authentication.
      */
-    protected RequestSpecification getAuthRequestSpec() {
+    private RequestSpecification getAuthRequestSpec() {
         return getCommonRequestSpec().header(AUTH, getUserToken());
     }
 
