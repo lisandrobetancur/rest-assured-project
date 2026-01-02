@@ -6,16 +6,7 @@ This project is a robust framework for API testing, built with a powerful combin
 
 ## Architecture
 
-The project follows a layered architecture that separates concerns and promotes code reusability. The following diagram illustrates the different layers of the project:
-
-```mermaid
-graph TD
-    A[Configuration] --> B(Features);
-    B --> C{Step Definitions};
-    C --> D[Steps];
-    D --> E[Base API];
-    E --> F((API));
-```
+The project follows a layered architecture that separates concerns and promotes code reusability.
 
 ## Technologies
 
