@@ -62,6 +62,20 @@ To run the tests, you can use the following command:
 
 This will execute the tests and generate a `Serenity` report in the `target/site/serenity` directory.
 
+### Running tests with specific environment
+
+You can specify the environment to run the tests against by using the `-Denvironment` property. The available environments are defined in `src/test/resources/serenity.conf`.
+
+**Default Environment:**
+```bash
+./gradlew test -Denvironment=default
+```
+
+**QA Environment:**
+```bash
+./gradlew test -Denvironment=qa
+```
+
 ## Reports
 
 After running the tests, you can view the `Serenity` report by opening the `index.html` file in your browser:
