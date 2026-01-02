@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum SessionVariable {
+public enum VarSession {
     USER_TOKEN("token");
 
     private final String value;

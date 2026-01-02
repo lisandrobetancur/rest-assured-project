@@ -20,9 +20,8 @@ public class BookingStepDefinitions {
         booking.searchBooking(bookingId);
     }
 
-    @Then("update the new firstname and lastname as {string} {string}")
-    public void updateFirstnameAndLastName(String firstname, String lastname) {}
-
-    @Then("the booking with ID {int} should be firstname {string} and lastname {string}")
-    public void verifyStatusCodess(int bookingId, String firstname, String lastname) {}
+    @Then("updated the new firstname and lastname as {string} and {string}")
+    public void updateFirstnameAndLastName(String firstname, String lastname) {
+        booking.updateFirstnameAndLastName(firstname, lastname);
+    }
 }
